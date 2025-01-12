@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using GlamTreasures.Models;
+using GlamTreasures.Data;
 
 namespace GlamTreasures.Data
 {
     public class GlamTreasuresContext : IdentityDbContext<IdentityUser>
     {
-        public GlamTreasuresContext (DbContextOptions<GlamTreasuresContext> options)
+        public GlamTreasuresContext(DbContextOptions<GlamTreasuresContext> options)
             : base(options)
         {
         }
@@ -20,5 +21,7 @@ namespace GlamTreasures.Data
             base.OnModelCreating(modelBuilder);
             // Add any additional model configuration here
         }
+     
     }
+   
 }

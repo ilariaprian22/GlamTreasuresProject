@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container
 builder.Services.AddRazorPages();
 
-// Configure the database context
+// Configure the GlamTreasuresContext with transient error resiliency
 builder.Services.AddDbContext<GlamTreasuresContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("GlamTreasuresContext")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("GlamTreasuresContext"))
+           .EnableRetryOnFailure());
 
 // Configure Identity services
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
@@ -21,7 +22,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
