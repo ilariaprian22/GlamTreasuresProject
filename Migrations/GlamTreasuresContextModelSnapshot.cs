@@ -41,7 +41,7 @@ namespace GlamTreasures.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("GlamTreasures.Models.JewelryItem", b =>

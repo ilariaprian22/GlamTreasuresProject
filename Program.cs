@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using GlamTreasures.Data;
 
@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<GlamTreasuresContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("GlamTreasuresContext")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<GlamTreasuresContext>();
 
 // Add Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {

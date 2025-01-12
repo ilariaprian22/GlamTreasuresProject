@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using GlamTreasures.Models;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 
 namespace GlamTreasures.Data
 {
-    public class GlamTreasuresContext : DbContext
+    public class GlamTreasuresContext : IdentityDbContext<IdentityUser>
     {
         public GlamTreasuresContext (DbContextOptions<GlamTreasuresContext> options)
             : base(options)
