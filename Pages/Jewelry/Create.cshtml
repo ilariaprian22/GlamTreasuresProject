@@ -1,8 +1,8 @@
 ﻿@page
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Authorization
+@attribute [Authorize(Roles = "Admin")]
 @model GlamTreasures.Pages.Jewelry.CreateModel
-@{
-    ViewData["Title"] = "Add New Jewelry";
-}
 
 <div class="container">
     <h1>Add New Jewelry Item</h1>

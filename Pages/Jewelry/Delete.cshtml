@@ -1,12 +1,11 @@
 ﻿@page
+@using Microsoft.AspNetCore.Authorization
 @model GlamTreasures.Pages.Jewelry.DeleteModel
-
 @{
     ViewData["Title"] = "Delete";
 }
-
+@attribute [Authorize(Roles = "Admin")]
 <h1>Delete</h1>
-
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>JewelryItem</h4>
@@ -61,7 +60,7 @@
             @Html.DisplayFor(model => model.JewelryItem.DateAdded)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="JewelryItem.ID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
