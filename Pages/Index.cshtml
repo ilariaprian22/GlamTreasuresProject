@@ -1,0 +1,71 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4 mb-4">Welcome to GlamTreasures</h1>
+    <p class="lead">Discover our exquisite collection of fine jewelry</p>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-gem fa-3x mb-3 text-accent"></i>
+                <h5 class="card-title">Quality Jewelry</h5>
+                <p class="card-text">Explore our handpicked collection of premium quality jewelry pieces.</p>
+                <a asp-page="/Jewelry/Index" class="btn btn-primary">Browse Collection</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-gift fa-3x mb-3 text-accent"></i>
+                <h5 class="card-title">Special Offers</h5>
+                <p class="card-text">Don't miss out on our latest deals and special promotions.</p>
+                <a href="#" class="btn btn-primary">View Offers</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-concierge-bell fa-3x mb-3 text-accent"></i>
+                <h5 class="card-title">Customer Service</h5>
+                <p class="card-text">Our team is here to help you find the perfect piece.</p>
+                <a href="#" class="btn btn-primary">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="text-center mb-4">Featured Categories</h2>
+                <div class="row text-center">
+                    <div class="col">
+                        <i class="fas fa-ring fa-2x mb-2"></i>
+                        <h5>Rings</h5>
+                    </div>
+                    <div class="col">
+                        <i class="fas fa-heart fa-2x mb-2"></i>
+                        <h5>Necklaces</h5>
+                    </div>
+                    <div class="col">
+                        <i class="fas fa-star fa-2x mb-2"></i>
+                        <h5>Earrings</h5>
+                    </div>
+                    <div class="col">
+                        <i class="fas fa-link fa-2x mb-2"></i>
+                        <h5>Bracelets</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
