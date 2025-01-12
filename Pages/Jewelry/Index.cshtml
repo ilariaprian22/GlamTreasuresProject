@@ -2,77 +2,67 @@
 @model GlamTreasures.Pages.Jewelry.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Browse Collection";
 }
 
-<h1>Index</h1>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Our Collection</h1>
+        <a asp-page="Create" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Add New Item
+        </a>
+    </div>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.JewelryItem[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JewelryItem[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JewelryItem[0].Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JewelryItem[0].Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JewelryItem[0].Material)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JewelryItem[0].StockQuantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JewelryItem[0].ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JewelryItem[0].DateAdded)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.JewelryItem) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Material)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StockQuantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="mb-4">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <select asp-for="CategoryFilter" asp-items="Model.Category" class="form-select">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" asp-for="SearchString" class="form-control" placeholder="Search...">
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fas fa-search me-2"></i>Search
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model.JewelryItem)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "/images/default-jewelry.jpg" : item.ImageUrl)"
+                         class="card-img-top" alt="@item.Name" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-primary fw-bold">@item.Price.ToString("C")</span>
+                            <span class="badge bg-@(item.StockQuantity > 0 ? "success" : "danger")">
+                                @(item.StockQuantity > 0 ? "In Stock" : "Out of Stock")
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <div class="d-flex justify-content-between">
+                            <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-edit me-1"></i>Edit
+                            </a>
+                            <a asp-page="./Details" asp-route-id="@item.ID" class="btn btn-outline-info btn-sm">
+                                <i class="fas fa-info-circle me-1"></i>Details
+                            </a>
+                            <a asp-page="./Delete" asp-route-id="@item.ID" class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash me-1"></i>Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

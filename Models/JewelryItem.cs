@@ -19,20 +19,20 @@ namespace GlamTreasures.Models
         [Required]
         [Column(TypeName = "decimal(18, 2)")]
         [Range(0.01, 100000.00)]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Price { get; set; }
 
-        // Foreign key for Category
+        [Display(Name = "Category")]
         public int CategoryID { get; set; }
-
-        // Navigation property
         public Category? Category { get; set; }
 
-        [Display(Name = "Material")]
         [Required]
+        [StringLength(50)]
         public string Material { get; set; }
 
         [Display(Name = "In Stock")]
         [Required]
+        [Range(0, 1000)]
         public int StockQuantity { get; set; }
 
         [Display(Name = "Image URL")]
@@ -40,6 +40,6 @@ namespace GlamTreasures.Models
 
         [Display(Name = "Added Date")]
         [DataType(DataType.Date)]
-        public DateTime DateAdded { get; set; }
+        public DateTime DateAdded { get; set; } = DateTime.Now;
     }
 }

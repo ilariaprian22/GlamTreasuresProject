@@ -8,22 +8,54 @@ using Microsoft.EntityFrameworkCore;
 using GlamTreasures.Data;
 using GlamTreasures.Models;
 
-namespace GlamTreasures.Pages.Categories
+
+namespace GlamTreasures.Pages.Jewelry
 {
     public class IndexModel : PageModel
     {
-        private readonly GlamTreasures.Data.GlamTreasuresContext _context;
+        private readonly GlamTreasuresContext _context;
 
-        public IndexModel(GlamTreasures.Data.GlamTreasuresContext context)
+        public IndexModel(GlamTreasuresContext context)
         {
             _context = context;
         }
 
-        public IList<Category> Category { get;set; } = default!;
+        public IList<JewelryItem> JewelryItem { get; set; } = default!;
+        [BindProperty(SupportsGet = true)]
+        public string? SearchString { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string? CategoryFilter { get; set; }
+        public SelectList? Categories { get; set; }
 
         public async Task OnGetAsync()
         {
-            Category = await _context.Category.ToListAsync();
+            // Get categories for the dropdown
+            IQueryable<string> categoryQuery = from c in _context.Categories
+                                               orderby c.Name
+                                               select c.Name;
+
+            Categories = new SelectList(await categoryQuery.ToListAsync());
+
+            // Build the query for jewelry items
+            var jewelryItems = from j in _context.JewelryItems
+                             .Include(j => j.Category)
+                               select j;
+
+            // Apply filters
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                jewelryItems = jewelryItems.Where(j =>
+                    j.Name.Contains(SearchString) ||
+                    j.Description.Contains(SearchString));
+            }
+
+            if (!string.IsNullOrEmpty(CategoryFilter))
+            {
+                jewelryItems = jewelryItems.Where(j =>
+                    j.Category.Name == CategoryFilter);
+            }
+
+            JewelryItem = await jewelryItems.ToListAsync();
         }
     }
 }
