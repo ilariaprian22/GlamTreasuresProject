@@ -30,7 +30,7 @@ namespace GlamTreasures.Pages.Categories
                 return NotFound();
             }
 
-            var category =  await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
+            var category =  await _context.Categories.FirstOrDefaultAsync(m => m.ID == id);
             if (category == null)
             {
                 return NotFound();
@@ -71,7 +71,7 @@ namespace GlamTreasures.Pages.Categories
 
         private bool CategoryExists(int id)
         {
-            return _context.Category.Any(e => e.ID == id);
+            return _context.Categories.Any(e => e.ID == id);
         }
     }
 }

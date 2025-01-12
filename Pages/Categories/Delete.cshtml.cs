@@ -29,7 +29,7 @@ namespace GlamTreasures.Pages.Categories
                 return NotFound();
             }
 
-            var category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
+            var category = await _context.Categories.FirstOrDefaultAsync(m => m.ID == id);
 
             if (category == null)
             {
@@ -49,11 +49,11 @@ namespace GlamTreasures.Pages.Categories
                 return NotFound();
             }
 
-            var category = await _context.Category.FindAsync(id);
+            var category = await _context.Categories.FindAsync(id);
             if (category != null)
             {
                 Category = category;
-                _context.Category.Remove(Category);
+                _context.Categories.Remove(Category);
                 await _context.SaveChangesAsync();
             }
 
