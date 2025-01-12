@@ -13,7 +13,7 @@ namespace GlamTreasures.Pages.Jewelry
 
         public IndexModel(GlamTreasuresContext context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _context = context;
         }
 
         public IList<JewelryItem> JewelryItems { get; set; } = default!;
@@ -22,34 +22,37 @@ namespace GlamTreasures.Pages.Jewelry
         public string? SearchString { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public string? CategoryFilter { get; set; }
+        public int? SelectedCategory { get; set; }
 
-        public SelectList? CategoriesList { get; set; }
+        public SelectList CategoryList { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            // Get categories for the dropdown
-            if (_context.Categories != null)
-            {
-                var categories = await _context.Categories.OrderBy(c => c.Name).ToListAsync();
-                CategoriesList = new SelectList(categories, "ID", "Name");
-            }
+            // Get all categories for the dropdown
+            var categories = await _context.Categories.ToListAsync();
+            CategoryList = new SelectList(categories, "ID", "Name");
 
-            var query = _context.JewelryItem.Include(j => j.Category).AsQueryable();
+            // Start with all jewelry items and include the Category navigation property
+            var jewelryQuery = _context.JewelryItem
+                .Include(j => j.Category)
+                .AsQueryable();
 
+            // Apply search filter if there's a search string
             if (!string.IsNullOrEmpty(SearchString))
             {
-                query = query.Where(j =>
+                jewelryQuery = jewelryQuery.Where(j =>
                     j.Name.Contains(SearchString) ||
                     j.Description.Contains(SearchString));
             }
 
-            if (!string.IsNullOrEmpty(CategoryFilter))
+            // Apply category filter if a category is selected
+            if (SelectedCategory.HasValue && SelectedCategory.Value != 0)
             {
-                query = query.Where(j => j.Category.Name == CategoryFilter);
+                jewelryQuery = jewelryQuery.Where(j => j.CategoryID == SelectedCategory.Value);
             }
 
-            JewelryItems = await query.ToListAsync();
+            // Execute the query and get the results
+            JewelryItems = await jewelryQuery.ToListAsync();
         }
     }
 }

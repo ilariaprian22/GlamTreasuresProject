@@ -1,6 +1,5 @@
 ﻿@page
 @model GlamTreasures.Pages.Jewelry.IndexModel
-
 @{
     ViewData["Title"] = "Jewelry Collection";
 }
@@ -13,54 +12,78 @@
         </a>
     </div>
 
-    <div class="mb-4">
-        <form method="get" class="row g-3">
-            <div class="col-md-4">
-                <select asp-for="CategoryFilter" asp-items="Model.CategoriesList" class="form-select">
-                    <option value="">All Categories</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <input type="text" asp-for="SearchString" class="form-control" placeholder="Search...">
-            </div>
-            <div class="col-md-4">
-                <button type="submit" class="btn btn-secondary">
-                    <i class="fas fa-search me-2"></i>Search
-                </button>
-            </div>
-        </form>
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Category</label>
+                    <select asp-for="SelectedCategory" class="form-select" asp-items="@Model.CategoryList">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Search</label>
+                    <div class="input-group">
+                        <input type="text" asp-for="SearchString" class="form-control" placeholder="Search by name or description...">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search me-1"></i>Search
+                        </button>
+                        <a asp-page="./Index" class="btn btn-secondary">
+                            <i class="fas fa-undo me-1"></i>Reset
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        @foreach (var item in Model.JewelryItems)
+        @if (Model.JewelryItems != null && Model.JewelryItems.Any())
         {
-            <div class="col">
-                <div class="card h-100">
-                    <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "/images/default-jewelry.jpg" : item.ImageUrl)"
-                         class="card-img-top" alt="@item.Name" style="height: 200px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.Name</h5>
-                        <p class="card-text">@item.Description</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="text-primary fw-bold">@item.Price.ToString("C")</span>
-                            <span class="badge bg-@(item.StockQuantity > 0 ? "success" : "danger")">
-                                @(item.StockQuantity > 0 ? "In Stock" : "Out of Stock")
-                            </span>
+            @foreach (var item in Model.JewelryItems)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? "/images/default-jewelry.jpg" : item.ImageUrl)"
+                             class="card-img-top" alt="@item.Name" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text">@item.Description</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-primary fw-bold">@item.Price.ToString("C")</span>
+                                <span class="badge bg-@(item.StockQuantity > 0 ? "success" : "danger")">
+                                    @(item.StockQuantity > 0 ? "In Stock" : "Out of Stock")
+                                </span>
+                            </div>
+                            @if (item.Category != null)
+                            {
+                                <div class="mt-2">
+                                    <small class="text-muted">Category: @item.Category.Name</small>
+                                </div>
+                            }
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="btn-group w-100">
+                                <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-edit me-1"></i>Edit
+                                </a>
+                                <a asp-page="./Details" asp-route-id="@item.ID" class="btn btn-outline-info btn-sm">
+                                    <i class="fas fa-info-circle me-1"></i>Details
+                                </a>
+                                <a asp-page="./Delete" asp-route-id="@item.ID" class="btn btn-outline-danger btn-sm">
+                                    <i class="fas fa-trash me-1"></i>Delete
+                                </a>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-footer bg-white border-top-0">
-                        <div class="d-flex justify-content-between">
-                            <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-edit me-1"></i>Edit
-                            </a>
-                            <a asp-page="./Details" asp-route-id="@item.ID" class="btn btn-outline-info btn-sm">
-                                <i class="fas fa-info-circle me-1"></i>Details
-                            </a>
-                            <a asp-page="./Delete" asp-route-id="@item.ID" class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-trash me-1"></i>Delete
-                            </a>
-                        </div>
-                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info">
+                    No jewelry items found. @((!string.IsNullOrEmpty(Model.SearchString) || Model.SelectedCategory.HasValue) ? "Try adjusting your filters." : "Add your first item!")
                 </div>
             </div>
         }
