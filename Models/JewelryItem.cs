@@ -39,6 +39,9 @@ namespace GlamTreasures.Models
         [Display(Name = "Image URL")]
         public string? ImageUrl { get; set; }
 
+        [Display(Name = "Special Offer")]
+        public bool IsSpecialOffer { get; set; }
+
         [Display(Name = "Added Date")]
         [DataType(DataType.Date)]
         public DateTime DateAdded { get; set; } = DateTime.Now;

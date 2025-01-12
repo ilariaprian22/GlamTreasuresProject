@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GlamTreasures.Migrations
 {
     [DbContext(typeof(GlamTreasuresContext))]
-    [Migration("20250112190503_AddAspNetRolesTable")]
-    partial class AddAspNetRolesTable
+    [Migration("20250112214505_AddIsSpecialOffer")]
+    partial class AddIsSpecialOffer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,6 +68,9 @@ namespace GlamTreasures.Migrations
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsSpecialOffer")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Material")
                         .IsRequired()

@@ -65,6 +65,10 @@
                     <span asp-validation-for="JewelryItem.ImageUrl" class="text-danger"></span>
                     <small class="form-text text-muted">Enter the URL of the jewelry image</small>
                 </div>
+                <div class="mb-3 form-check">
+                    <input asp-for="JewelryItem.IsSpecialOffer" class="form-check-input" />
+                    <label asp-for="JewelryItem.IsSpecialOffer" class="form-check-label"></label>
+                </div>
 
                 <div class="mb-3">
                     <button type="submit" class="btn btn-primary">

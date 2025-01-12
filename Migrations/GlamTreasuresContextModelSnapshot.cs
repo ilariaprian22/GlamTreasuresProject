@@ -66,6 +66,9 @@ namespace GlamTreasures.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsSpecialOffer")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Material")
                         .IsRequired()
                         .HasMaxLength(50)

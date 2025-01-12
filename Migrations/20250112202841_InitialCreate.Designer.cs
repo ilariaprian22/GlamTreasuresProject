@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GlamTreasures.Migrations
 {
     [DbContext(typeof(GlamTreasuresContext))]
-    [Migration("20250112193934_LastMigration")]
-    partial class LastMigration
+    [Migration("20250112202841_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

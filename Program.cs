@@ -3,18 +3,16 @@ using GlamTreasures.Data;
 using GlamTreasures.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
 builder.Services.AddRazorPages();
 
-// Configure the GlamTreasuresContext with transient error resiliency
 builder.Services.AddDbContext<GlamTreasuresContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("GlamTreasuresContext"))
-           .EnableRetryOnFailure());
+    options.UseSqlServer(builder.Configuration.GetConnectionString("GlamTreasuresContext"),
+        sqlServerOptionsAction: sqlOptions => sqlOptions.EnableRetryOnFailure()));
 
-// Configure Identity services
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<GlamTreasuresContext>()
     .AddDefaultTokenProviders()
@@ -22,7 +20,6 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -36,7 +33,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
 
-// Seed admin user
 await AdminSeedService.SeedAdminUser(app.Services);
 
 app.Run();
