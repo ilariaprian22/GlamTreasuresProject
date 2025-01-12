@@ -16,5 +16,6 @@ namespace GlamTreasures.Data
 
         public DbSet<GlamTreasures.Models.JewelryItem> JewelryItem { get; set; } = default!;
         public DbSet<GlamTreasures.Models.Category> Category { get; set; } = default!;
+        public DbSet<Category> Categories { get; set; } = default!;
     }
 }

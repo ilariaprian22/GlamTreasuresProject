@@ -9,12 +9,10 @@ namespace GlamTreasures.Models
         [Required]
         [StringLength(50)]
         [Display(Name = "Category Name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [StringLength(200)]
         public string? Description { get; set; }
 
-        // Navigation property
         public ICollection<JewelryItem>? JewelryItems { get; set; }
     }
-}

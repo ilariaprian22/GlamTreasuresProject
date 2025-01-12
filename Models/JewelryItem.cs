@@ -10,11 +10,11 @@ namespace GlamTreasures.Models
         [Display(Name = "Jewelry Name")]
         [Required]
         [StringLength(100)]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [Required]
         [StringLength(1000)]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Required]
         [Column(TypeName = "decimal(18, 2)")]
@@ -24,11 +24,12 @@ namespace GlamTreasures.Models
 
         [Display(Name = "Category")]
         public int CategoryID { get; set; }
+
         public Category? Category { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string Material { get; set; }
+        public string Material { get; set; } = string.Empty;
 
         [Display(Name = "In Stock")]
         [Required]

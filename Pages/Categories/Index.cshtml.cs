@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GlamTreasures.Data;
 using GlamTreasures.Models;
-
 
 namespace GlamTreasures.Pages.Jewelry
 {
@@ -21,10 +17,13 @@ namespace GlamTreasures.Pages.Jewelry
         }
 
         public IList<JewelryItem> JewelryItem { get; set; } = default!;
+
         [BindProperty(SupportsGet = true)]
         public string? SearchString { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public string? CategoryFilter { get; set; }
+
         public SelectList? Categories { get; set; }
 
         public async Task OnGetAsync()
@@ -36,12 +35,10 @@ namespace GlamTreasures.Pages.Jewelry
 
             Categories = new SelectList(await categoryQuery.ToListAsync());
 
-            // Build the query for jewelry items
             var jewelryItems = from j in _context.JewelryItems
                              .Include(j => j.Category)
                                select j;
 
-            // Apply filters
             if (!string.IsNullOrEmpty(SearchString))
             {
                 jewelryItems = jewelryItems.Where(j =>
