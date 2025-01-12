@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using GlamTreasures.Data;
@@ -12,28 +8,35 @@ namespace GlamTreasures.Pages.Jewelry
 {
     public class CreateModel : PageModel
     {
-        private readonly GlamTreasures.Data.GlamTreasuresContext _context;
+        private readonly GlamTreasuresContext _context;
 
-        public CreateModel(GlamTreasures.Data.GlamTreasuresContext context)
+        public CreateModel(GlamTreasuresContext context)
         {
             _context = context;
         }
 
         public IActionResult OnGet()
         {
+            // Load categories for dropdown
+            CategoryList = new SelectList(_context.Categories, "ID", "Name");
             return Page();
         }
 
         [BindProperty]
         public JewelryItem JewelryItem { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
+        public SelectList CategoryList { get; set; } = default!;
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                CategoryList = new SelectList(_context.Categories, "ID", "Name");
                 return Page();
             }
+
+            // Set the creation date
+            JewelryItem.DateAdded = DateTime.Now;
 
             _context.JewelryItem.Add(JewelryItem);
             await _context.SaveChangesAsync();

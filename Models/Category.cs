@@ -16,3 +16,4 @@ namespace GlamTreasures.Models
 
         public ICollection<JewelryItem>? JewelryItems { get; set; }
     }
+}

@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using GlamTreasures.Data;
 using GlamTreasures.Models;
+using GlamTreasures.Data;
 
 namespace GlamTreasures.Pages.Categories
 {
     public class CreateModel : PageModel
     {
-        private readonly GlamTreasures.Data.GlamTreasuresContext _context;
+        private readonly GlamTreasuresContext _context;
 
-        public CreateModel(GlamTreasures.Data.GlamTreasuresContext context)
+        public CreateModel(GlamTreasuresContext context)
         {
             _context = context;
         }
@@ -27,7 +22,6 @@ namespace GlamTreasures.Pages.Categories
         [BindProperty]
         public Category Category { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -35,9 +29,10 @@ namespace GlamTreasures.Pages.Categories
                 return Page();
             }
 
-            _context.Category.Add(Category);
+            _context.Categories.Add(Category);
             await _context.SaveChangesAsync();
 
+            TempData["Success"] = "Category created successfully!";
             return RedirectToPage("./Index");
         }
     }

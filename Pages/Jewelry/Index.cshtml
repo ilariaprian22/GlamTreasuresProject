@@ -2,7 +2,7 @@
 @model GlamTreasures.Pages.Jewelry.IndexModel
 
 @{
-    ViewData["Title"] = "Browse Collection";
+    ViewData["Title"] = "Jewelry Collection";
 }
 
 <div class="container">
@@ -16,7 +16,7 @@
     <div class="mb-4">
         <form method="get" class="row g-3">
             <div class="col-md-4">
-                <select asp-for="CategoryFilter" asp-items="Model.Category" class="form-select">
+                <select asp-for="CategoryFilter" asp-items="Model.CategoriesList" class="form-select">
                     <option value="">All Categories</option>
                 </select>
             </div>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        @foreach (var item in Model.JewelryItem)
+        @foreach (var item in Model.JewelryItems)
         {
             <div class="col">
                 <div class="card h-100">
