@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,15 +9,17 @@ namespace GlamTreasures.Pages.Jewelry
 {
     public class EditModel : PageModel
     {
-        private readonly GlamTreasures.Data.GlamTreasuresContext _context;
+        private readonly GlamTreasuresContext _context;
 
-        public EditModel(GlamTreasures.Data.GlamTreasuresContext context)
+        public EditModel(GlamTreasuresContext context)
         {
             _context = context;
         }
 
         [BindProperty]
         public JewelryItem JewelryItem { get; set; } = default!;
+
+        public SelectList CategoryList { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,21 +28,25 @@ namespace GlamTreasures.Pages.Jewelry
                 return NotFound();
             }
 
-            var jewelryitem =  await _context.JewelryItem.FirstOrDefaultAsync(m => m.ID == id);
+            var jewelryitem = await _context.JewelryItem
+                .FirstOrDefaultAsync(m => m.ID == id);
+
             if (jewelryitem == null)
             {
                 return NotFound();
             }
+
             JewelryItem = jewelryitem;
+            CategoryList = new SelectList(_context.Categories, "ID", "Name");
+
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                CategoryList = new SelectList(_context.Categories, "ID", "Name");
                 return Page();
             }
 

@@ -6,11 +6,11 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
         </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-light border-0">Logout</button>
+                <button type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
             </form>
         </li>
     }
@@ -24,3 +24,27 @@
         </li>
     }
 </ul>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const logoutForm = document.querySelector('form[asp-page="/Account/Logout"]');
+            if (logoutForm) {
+                logoutForm.addEventListener('submit', function (e) {
+                    const button = this.querySelector('button');
+                    if (button) {
+                        button.disabled = true;
+                        button.textContent = 'Logging out...';
+                    }
+                });
+            }
+
+            const currentPath = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+}

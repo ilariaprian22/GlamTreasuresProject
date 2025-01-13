@@ -13,7 +13,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">GlamTreasures</a>
+                <a class="navbar-brand text-dark" asp-area="" asp-page="/Index">GlamTreasures</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -28,12 +28,12 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown">
                                     Admin
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Categories/Index">Manage Categories</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-page="/Jewelry/Create">Add New Jewelry</a></li>
+                                    <li><a class="dropdown-item text-dark" asp-area="" asp-page="/Categories/Index">Manage Categories</a></li>
+                                    <li><a class="dropdown-item text-dark" asp-area="" asp-page="/Jewelry/Create">Add New Jewelry</a></li>
                                 </ul>
                             </li>
                         }
@@ -68,22 +68,22 @@
         <div class="container">
             <div class="row py-3">
                 <div class="col-md-4">
-                    <h5>Contact Us</h5>
-                    <p>
+                    <h5 class="text-dark">Contact Us</h5>
+                    <p class="text-dark">
                         <i class="fas fa-envelope me-2"></i>Email: info@glamtreasures.com<br>
                         <i class="fas fa-phone me-2"></i>Phone: (555) 123-4567
                     </p>
                 </div>
                 <div class="col-md-4">
-                    <h5>Follow Us</h5>
+                    <h5 class="text-dark">Follow Us</h5>
                     <div class="social-links">
-                        <a href="#" class="me-3"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="me-3"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" class="text-dark me-3"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-dark me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-dark me-3"><i class="fab fa-pinterest"></i></a>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <p>&copy; 2024 - GlamTreasures - <a asp-area="" asp-page="/Privacy">Privacy</a></p>
+                    <p class="text-dark">&copy; 2024 - GlamTreasures - <a class="text-dark" asp-area="" asp-page="/Privacy">Privacy</a></p>
                 </div>
             </div>
         </div>
