@@ -10,25 +10,25 @@
         <div class="col-md-6 offset-md-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h1 class="card-title text-center mb-4">Create Category</h1>
+                    <h1 class="card-title text-center mb-4">Creeaza o categorie</h1>
                     <form method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="mb-3">
-                            <label asp-for="Category.Name" class="form-label">Category Name</label>
+                            <label asp-for="Category.Name" class="form-label">Numele categoriei</label>
                             <input asp-for="Category.Name" class="form-control" />
                             <span asp-validation-for="Category.Name" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
-                            <label asp-for="Category.Description" class="form-label">Description</label>
+                            <label asp-for="Category.Description" class="form-label">Descriere</label>
                             <textarea asp-for="Category.Description" class="form-control" rows="3"></textarea>
                             <span asp-validation-for="Category.Description" class="text-danger"></span>
                         </div>
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-2"></i>Create Category
+                                <i class="fas fa-save me-2"></i>Creeaza
                             </button>
                             <a asp-page="Index" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left me-2"></i>Back to List
+                                <i class="fas fa-arrow-left me-2"></i>Inapoi la lista
                             </a>
                         </div>
                     </form>

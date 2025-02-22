@@ -11,7 +11,7 @@ namespace GlamTreasures.Services
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-                // Create roles if they don't exist
+                //Creeaza roluri
                 string[] roleNames = { "Admin", "User" };
                 foreach (var roleName in roleNames)
                 {
@@ -22,7 +22,7 @@ namespace GlamTreasures.Services
                     }
                 }
 
-                // Create admin user if it doesn't exist
+                // Creeaza un admin
                 var adminEmail = "admin@glamtreasures.com";
                 var adminUser = await userManager.FindByEmailAsync(adminEmail);
 
